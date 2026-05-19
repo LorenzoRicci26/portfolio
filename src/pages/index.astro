@@ -5,20 +5,22 @@ import Hero from '../components/Hero.astro';
 import Section from '../components/Section.astro';
 import ProjectCard from '../components/ProjectCard.astro';
 import SkillList from '../components/SkillList.astro';
+import Timeline from '../components/Timeline.astro';
 import Footer from '../components/Footer.astro';
 
 // --- CONFIGURA I TUOI DATI QUI ---
-const myName = 'Il Tuo Nome';
+const myName = 'Lorenzo Ricci';
 
 const navLinks = [
   { label: 'Home', href: '#home' },
+  { label: 'Percorso', href: '#journey' },
   { label: 'Progetti', href: '#projects' },
   { label: 'Skill', href: '#skills' },
   { label: 'Contatti', href: '#contact' },
 ];
 
 const hero = {
-  headline: 'Sviluppatore Full Stack',
+  headline: 'Software Engineer - Enterprise Architect',
   subheadline: 'Costruisco applicazioni web performanti e esperienze digitali curate nel dettaglio. Passionato di codice pulito e design minimal.',
   ctaText: 'Vedi i miei progetti',
   ctaHref: '#projects',
@@ -45,6 +47,37 @@ const projects = [
   },
 ];
 
+const journey = [
+  {
+    title: 'Laurea Magistrale in Ingegneria Informatica',
+    organization: 'Università degli Studi di Milano',
+    period: '2023 — 2025',
+    description: 'Specializzazione in ingegneria del software e sistemi distribuiti. Tesi su architetture cloud-native e microservizi.',
+    type: 'education' as const,
+  },
+  {
+    title: 'Laurea Triennale in Ingegneria Informatica',
+    organization: 'Università degli Studi di Milano',
+    period: '2020 — 2023',
+    description: 'Fondamenti di programmazione, algoritmi, strutture dati, basi di dati e ingegneria dei sistemi.',
+    type: 'education' as const,
+  },
+  {
+    title: 'Software Engineer',
+    organization: 'Azienda XYZ',
+    period: '2025 — presente',
+    description: 'Sviluppo di applicazioni enterprise full-stack. Design e implementazione di microservizi, API REST e interfacce utente.',
+    type: 'work' as const,
+  },
+  {
+    title: 'Software Engineer Intern',
+    organization: 'Startup ABC',
+    period: '2024',
+    description: 'Stage di 6 mesi su sviluppo frontend React/TypeScript e integrazione di servizi backend in ambiente cloud.',
+    type: 'work' as const,
+  },
+];
+
 const skillCategories = [
   {
     name: 'Frontend',
@@ -63,7 +96,7 @@ const skillCategories = [
 const socials = [
   { label: 'GitHub', href: 'https://github.com/' },
   { label: 'LinkedIn', href: 'https://linkedin.com/' },
-  { label: 'Email', href: 'mailto:tu@email.com' },
+  { label: 'Email', href: 'mailto:riccilorenzo5@gmail.com' },
 ];
 
 ---
@@ -78,6 +111,14 @@ const socials = [
     ctaText={hero.ctaText}
     ctaHref={hero.ctaHref}
   />
+
+  <Section
+    id="journey"
+    title="Percorso"
+    description="Il mio cammino accademico e professionale — ogni tappa ha plasmato il modo in cui progetto e costruisco software."
+  >
+    <Timeline items={journey} />
+  </Section>
 
   <Section
     id="projects"
