@@ -1,0 +1,22 @@
+---
+const { title, description, tags, href } = Astro.props;
+---
+
+<a
+  href={href || '#'}
+  class="group block rounded-xl border border-neutral-800 bg-neutral-900/50 p-8 hover:border-neutral-700 hover:bg-neutral-900 transition-all"
+>
+  <h3 class="text-xl font-semibold mb-3 group-hover:text-emerald-400 transition-colors">
+    {title}
+  </h3>
+  <p class="text-neutral-400 text-sm leading-relaxed mb-6">
+    {description}
+  </p>
+  <div class="flex flex-wrap gap-2">
+    {tags.map(tag => (
+      <span class="text-xs px-3 py-1 rounded-full bg-neutral-800 text-neutral-300">
+        {tag}
+      </span>
+    ))}
+  </div>
+</a>

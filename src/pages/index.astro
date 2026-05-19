@@ -1,0 +1,125 @@
+---
+import Layout from '../layouts/Layout.astro';
+import Navbar from '../components/Navbar.astro';
+import Hero from '../components/Hero.astro';
+import Section from '../components/Section.astro';
+import ProjectCard from '../components/ProjectCard.astro';
+import SkillList from '../components/SkillList.astro';
+import Footer from '../components/Footer.astro';
+
+// --- CONFIGURA I TUOI DATI QUI ---
+const myName = 'Il Tuo Nome';
+
+const navLinks = [
+  { label: 'Home', href: '#home' },
+  { label: 'Progetti', href: '#projects' },
+  { label: 'Skill', href: '#skills' },
+  { label: 'Contatti', href: '#contact' },
+];
+
+const hero = {
+  headline: 'Sviluppatore Full Stack',
+  subheadline: 'Costruisco applicazioni web performanti e esperienze digitali curate nel dettaglio. Passionato di codice pulito e design minimal.',
+  ctaText: 'Vedi i miei progetti',
+  ctaHref: '#projects',
+};
+
+const projects = [
+  {
+    title: 'Progetto Uno',
+    description: 'Descrizione breve del progetto. Spiega cosa fa, qual era il problema e come l hai risolto.',
+    tags: ['Astro', 'Tailwind', 'TypeScript'],
+    href: '#',
+  },
+  {
+    title: 'Progetto Due',
+    description: 'Un altro progetto significativo. Descrivi le tecnologie usate e il risultato ottenuto.',
+    tags: ['React', 'Node.js', 'PostgreSQL'],
+    href: '#',
+  },
+  {
+    title: 'Progetto Tre',
+    description: 'Descrizione di un progetto open source, side project, o qualsiasi lavoro che vuoi mostrare.',
+    tags: ['Python', 'Docker', 'AWS'],
+    href: '#',
+  },
+];
+
+const skillCategories = [
+  {
+    name: 'Frontend',
+    skills: ['TypeScript', 'React', 'Astro', 'Tailwind CSS', 'Next.js'],
+  },
+  {
+    name: 'Backend',
+    skills: ['Node.js', 'Python', 'PostgreSQL', 'REST APIs', 'GraphQL'],
+  },
+  {
+    name: 'Tools & DevOps',
+    skills: ['Git', 'Docker', 'AWS', 'CI/CD', 'Linux'],
+  },
+];
+
+const socials = [
+  { label: 'GitHub', href: 'https://github.com/' },
+  { label: 'LinkedIn', href: 'https://linkedin.com/' },
+  { label: 'Email', href: 'mailto:tu@email.com' },
+];
+
+---
+
+<Layout title={myName + ' — Portfolio'} description="Portfolio professionale">
+
+  <Navbar name={myName} links={navLinks} />
+
+  <Hero
+    headline={hero.headline}
+    subheadline={hero.subheadline}
+    ctaText={hero.ctaText}
+    ctaHref={hero.ctaHref}
+  />
+
+  <Section
+    id="projects"
+    title="Progetti"
+    description="Una selezione di lavori che rappresentano le mie competenze e i miei interessi."
+  >
+    <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+      {projects.map(project => (
+        <ProjectCard
+          title={project.title}
+          description={project.description}
+          tags={project.tags}
+          href={project.href}
+        />
+      ))}
+    </div>
+  </Section>
+
+  <Section
+    id="skills"
+    title="Skill"
+    description="Le tecnologie e gli strumenti che utilizzo quotidianamente."
+  >
+    <SkillList categories={skillCategories} />
+  </Section>
+
+  <Section
+    id="contact"
+    title="Contatti"
+    description="Sono aperto a opportunità e collaborazioni. Non esitare a contattarmi."
+  >
+    <a
+      href="mailto:tu@email.com"
+      class="inline-flex items-center gap-2 bg-emerald-500 text-neutral-950 font-semibold text-sm px-6 py-3 rounded-lg hover:bg-emerald-400 transition-colors"
+    >
+      Scrivimi una email
+      <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 8l7.89 5.26a2 2 0 002.22 0L21 8M5 19h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v10a2 2 0 002 2z" />
+      </svg>
+    </a>
+  </Section>
+
+  <Footer name={myName} socials={socials} />
+
+</Layout>
