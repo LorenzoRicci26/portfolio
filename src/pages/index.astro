@@ -32,18 +32,21 @@ const projects = [
     description: 'Descrizione breve del progetto. Spiega cosa fa, qual era il problema e come l hai risolto.',
     tags: ['Astro', 'Tailwind', 'TypeScript'],
     href: '#',
+    image: 'projects/project-1.svg',
   },
   {
     title: 'Progetto Due',
     description: 'Un altro progetto significativo. Descrivi le tecnologie usate e il risultato ottenuto.',
     tags: ['React', 'Node.js', 'PostgreSQL'],
     href: '#',
+    image: 'projects/project-2.svg',
   },
   {
     title: 'Progetto Tre',
     description: 'Descrizione di un progetto open source, side project, o qualsiasi lavoro che vuoi mostrare.',
     tags: ['Python', 'Docker', 'AWS'],
     href: '#',
+    image: 'projects/project-3.svg',
   },
 ];
 
@@ -54,6 +57,7 @@ const journey = [
     period: '2023 — 2025',
     description: 'Specializzazione in ingegneria del software e sistemi distribuiti. Tesi su architetture cloud-native e microservizi.',
     type: 'education' as const,
+    logo: 'logos/unimi.svg',
   },
   {
     title: 'Laurea Triennale in Ingegneria Informatica',
@@ -61,6 +65,7 @@ const journey = [
     period: '2020 — 2023',
     description: 'Fondamenti di programmazione, algoritmi, strutture dati, basi di dati e ingegneria dei sistemi.',
     type: 'education' as const,
+    logo: 'logos/unimi.svg',
   },
   {
     title: 'Software Engineer',
@@ -68,6 +73,7 @@ const journey = [
     period: '2025 — presente',
     description: 'Sviluppo di applicazioni enterprise full-stack. Design e implementazione di microservizi, API REST e interfacce utente.',
     type: 'work' as const,
+    logo: 'logos/azienda-xyz.svg',
   },
   {
     title: 'Software Engineer Intern',
@@ -75,6 +81,7 @@ const journey = [
     period: '2024',
     description: 'Stage di 6 mesi su sviluppo frontend React/TypeScript e integrazione di servizi backend in ambiente cloud.',
     type: 'work' as const,
+    logo: 'logos/startup-abc.svg',
   },
 ];
 
@@ -132,6 +139,7 @@ const socials = [
           description={project.description}
           tags={project.tags}
           href={project.href}
+          image={project.image}
         />
       ))}
     </div>
