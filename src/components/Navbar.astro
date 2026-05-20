@@ -18,6 +18,54 @@ const { name, links } = Astro.props;
           </a>
         </li>
       ))}
+      <li>
+        <button
+          class="lang-toggle relative flex items-center rounded-full border border-neutral-700 bg-neutral-900 p-0.5 cursor-pointer"
+          title="Switch language"
+          data-active="it"
+        >
+          <span class="toggle-slider absolute left-0.5 top-0.5 w-[26px] h-[22px] rounded-full bg-neutral-700 transition-transform duration-200 ease-in-out" />
+          <span class="flag-it flex items-center justify-center w-[26px] h-[22px] rounded-full text-xs relative z-10">🇮🇹</span>
+          <span class="flag-en flex items-center justify-center w-[26px] h-[22px] rounded-full text-xs relative z-10">🇬🇧</span>
+        </button>
+      </li>
     </ul>
   </div>
 </nav>
+
+<script is:inline>
+  (function () {
+    if (document.querySelector('.lang-toggle[data-initialized]')) return;
+
+    const toggles = document.querySelectorAll('.lang-toggle');
+    toggles.forEach(toggle => toggle.dataset.initialized = 'true');
+
+    function applyLang() {
+      const lang = localStorage.getItem('lang') || 'it';
+      document.documentElement.setAttribute('data-lang', lang);
+
+      toggles.forEach(toggle => {
+        toggle.dataset.active = lang;
+        const slider = toggle.querySelector('.toggle-slider');
+        if (slider) {
+          if (lang === 'en') {
+            slider.style.transform = 'translateX(100%)';
+          } else {
+            slider.style.transform = 'translateX(0)';
+          }
+        }
+      });
+    }
+
+    applyLang();
+
+    toggles.forEach(toggle => {
+      toggle.addEventListener('click', () => {
+        const current = localStorage.getItem('lang') || 'it';
+        const next = current === 'it' ? 'en' : 'it';
+        localStorage.setItem('lang', next);
+        applyLang();
+      });
+    });
+  })();
+</script>
