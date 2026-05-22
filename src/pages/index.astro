@@ -1,174 +1,262 @@
 ---
 import Layout from '../layouts/Layout.astro';
-import Navbar from '../components/Navbar.astro';
+import NavbarIt from '../components/NavbarIt.astro';
+import NavbarEn from '../components/NavbarEn.astro';
 import Hero from '../components/Hero.astro';
 import Section from '../components/Section.astro';
 import ProjectCard from '../components/ProjectCard.astro';
 import SkillList from '../components/SkillList.astro';
 import Timeline from '../components/Timeline.astro';
+import AboutMe from '../components/AboutMe.astro';
 import Footer from '../components/Footer.astro';
 
-// --- CONFIGURA I TUOI DATI QUI ---
+import { i18n as it } from '../content/i18n/it';
+import { i18n as en } from '../content/i18n/en';
+
 const myName = 'Lorenzo Ricci';
 
-const navLinks = [
-  { label: 'Home', href: '#home' },
-  { label: 'Percorso', href: '#journey' },
-  { label: 'Progetti', href: '#projects' },
-  { label: 'Skill', href: '#skills' },
-  { label: 'Contatti', href: '#contact' },
-];
-
-const hero = {
-  headline: 'Software Engineer - Enterprise Architect',
-  subheadline: 'Costruisco applicazioni web performanti e esperienze digitali curate nel dettaglio. Passionato di codice pulito e design minimal.',
-  ctaText: 'Vedi i miei progetti',
-  ctaHref: '#projects',
-};
-
-const projects = [
-  {
-    title: 'Progetto Uno',
-    description: 'Descrizione breve del progetto. Spiega cosa fa, qual era il problema e come l hai risolto.',
-    tags: ['Astro', 'Tailwind', 'TypeScript'],
-    href: '#',
-    image: 'projects/project-1.svg',
-  },
-  {
-    title: 'Progetto Due',
-    description: 'Un altro progetto significativo. Descrivi le tecnologie usate e il risultato ottenuto.',
-    tags: ['React', 'Node.js', 'PostgreSQL'],
-    href: '#',
-    image: 'projects/project-2.svg',
-  },
-  {
-    title: 'Progetto Tre',
-    description: 'Descrizione di un progetto open source, side project, o qualsiasi lavoro che vuoi mostrare.',
-    tags: ['Python', 'Docker', 'AWS'],
-    href: '#',
-    image: 'projects/project-3.svg',
-  },
-];
-
-const journey = [
-  {
-    title: 'Laurea Magistrale in Ingegneria Informatica',
-    organization: 'Università degli Studi di Milano',
-    period: '2023 — 2025',
-    description: 'Specializzazione in ingegneria del software e sistemi distribuiti. Tesi su architetture cloud-native e microservizi.',
-    type: 'education' as const,
-    logo: 'logos/unimi.svg',
-  },
-  {
-    title: 'Laurea Triennale in Ingegneria Informatica',
-    organization: 'Università degli Studi di Milano',
-    period: '2020 — 2023',
-    description: 'Fondamenti di programmazione, algoritmi, strutture dati, basi di dati e ingegneria dei sistemi.',
-    type: 'education' as const,
-    logo: 'logos/unimi.svg',
-  },
-  {
-    title: 'Software Engineer',
-    organization: 'Azienda XYZ',
-    period: '2025 — presente',
-    description: 'Sviluppo di applicazioni enterprise full-stack. Design e implementazione di microservizi, API REST e interfacce utente.',
-    type: 'work' as const,
-    logo: 'logos/azienda-xyz.svg',
-  },
-  {
-    title: 'Software Engineer Intern',
-    organization: 'Startup ABC',
-    period: '2024',
-    description: 'Stage di 6 mesi su sviluppo frontend React/TypeScript e integrazione di servizi backend in ambiente cloud.',
-    type: 'work' as const,
-    logo: 'logos/startup-abc.svg',
-  },
-];
-
-const skillCategories = [
-  {
-    name: 'Frontend',
-    skills: ['TypeScript', 'React', 'Astro', 'Tailwind CSS', 'Next.js'],
-  },
-  {
-    name: 'Backend',
-    skills: ['Node.js', 'Python', 'PostgreSQL', 'REST APIs', 'GraphQL'],
-  },
-  {
-    name: 'Tools & DevOps',
-    skills: ['Git', 'Docker', 'AWS', 'CI/CD', 'Linux'],
-  },
-];
-
-const socials = [
-  { label: 'GitHub', href: 'https://github.com/' },
-  { label: 'LinkedIn', href: 'https://linkedin.com/' },
-  { label: 'Email', href: 'mailto:riccilorenzo5@gmail.com' },
-];
+// Shared section ID mapping so both languages use the same anchors
+const sectionIds = ['home', 'about', 'experience', 'education', 'projects', 'skills', 'languages', 'contact'];
 
 ---
 
-<Layout title={myName + ' — Portfolio'} description="Portfolio professionale">
+<Layout title={it.seo.title} description={it.seo.description}>
 
-  <Navbar name={myName} links={navLinks} />
+  <!-- Italian Navbar -->
+  <NavbarIt name={myName} links={it.nav.links} />
+  <!-- English Navbar -->
+  <NavbarEn name={myName} links={en.nav.links} />
+  <!-- Italian Content -->
+  <div class="lang-it">
+    <Hero
+      headline={it.hero.headline}
+      subheadline={it.hero.subheadline}
+      ctaText={it.hero.ctaText}
+      ctaHref={it.hero.ctaHref}
+      badge={it.hero.badge}
+      data-section="home"
+    />
 
-  <Hero
-    headline={hero.headline}
-    subheadline={hero.subheadline}
-    ctaText={hero.ctaText}
-    ctaHref={hero.ctaHref}
-  />
+    <Section data-section="about" title={it.about.title} description="">
+      <AboutMe description={it.about.description} />
+    </Section>
 
-  <Section
-    id="journey"
-    title="Percorso"
-    description="Il mio cammino accademico e professionale — ogni tappa ha plasmato il modo in cui progetto e costruisco software."
-  >
-    <Timeline items={journey} />
-  </Section>
+    <Section data-section="experience" title={it.experience.title} description={it.experience.description}>
+      <Timeline items={it.experience.items} />
+    </Section>
 
-  <Section
-    id="projects"
-    title="Progetti"
-    description="Una selezione di lavori che rappresentano le mie competenze e i miei interessi."
-  >
-    <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
-      {projects.map(project => (
-        <ProjectCard
-          title={project.title}
-          description={project.description}
-          tags={project.tags}
-          href={project.href}
-          image={project.image}
-        />
-      ))}
-    </div>
-  </Section>
+    <Section data-section="education" title={it.education.title} description={it.education.description}>
+      <Timeline items={it.education.items} />
+    </Section>
 
-  <Section
-    id="skills"
-    title="Skill"
-    description="Le tecnologie e gli strumenti che utilizzo quotidianamente."
-  >
-    <SkillList categories={skillCategories} />
-  </Section>
+    <Section data-section="projects" title={it.projects.title} description={it.projects.description}>
+      <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+        {it.projects.items.map(project => (
+          <ProjectCard
+            title={project.title}
+            description={project.description}
+            tags={project.tags}
+            href={project.href}
+          />
+        ))}
+      </div>
+    </Section>
 
-  <Section
-    id="contact"
-    title="Contatti"
-    description="Sono aperto a opportunità e collaborazioni. Non esitare a contattarmi."
-  >
-    <a
-      href="mailto:tu@email.com"
-      class="inline-flex items-center gap-2 bg-emerald-500 text-neutral-950 font-semibold text-sm px-6 py-3 rounded-lg hover:bg-emerald-400 transition-colors"
-    >
-      Scrivimi una email
-      <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 8l7.89 5.26a2 2 0 002.22 0L21 8M5 19h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v10a2 2 0 002 2z" />
-      </svg>
-    </a>
-  </Section>
+    <Section data-section="skills" title={it.skills.title} description={it.skills.description}>
+      <SkillList categories={it.skills.categories} />
+    </Section>
 
-  <Footer name={myName} socials={socials} />
+    <Section data-section="languages" title={it.languages.title} description={it.languages.description}>
+      <div class="flex flex-wrap gap-6">
+        {it.languages.items.map(item => (
+          <div class="flex flex-col items-start">
+            <span class="text-lg font-semibold text-white">{item.name}</span>
+            <span class="text-sm text-neutral-400">{item.level}</span>
+          </div>
+        ))}
+      </div>
+    </Section>
+
+    <Section data-section="contact" title={it.contact.title} description={it.contact.description}>
+      <a
+        href={it.contact.email}
+        class="inline-flex items-center gap-2 bg-emerald-500 text-neutral-950 font-semibold text-sm px-6 py-3 rounded-lg hover:bg-emerald-400 transition-colors"
+      >
+        {it.contact.ctaText}
+        <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+          <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 8l7.89 5.26a2 2 0 002.22 0L21 8M5 19h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v10a2 2 0 002 2z" />
+        </svg>
+      </a>
+    </Section>
+
+    <Footer name={myName} socials={it.socials} copyright={it.footer.copyright} />
+  </div>
+
+  <!-- English Content -->
+  <div class="lang-en">
+    <Hero
+      headline={en.hero.headline}
+      subheadline={en.hero.subheadline}
+      ctaText={en.hero.ctaText}
+      ctaHref={en.hero.ctaHref}
+      badge={en.hero.badge}
+      data-section="home"
+    />
+
+    <Section data-section="about" title={en.about.title} description="">
+      <AboutMe description={en.about.description} />
+    </Section>
+
+    <Section data-section="experience" title={en.experience.title} description={en.experience.description}>
+      <Timeline items={en.experience.items} />
+    </Section>
+
+    <Section data-section="education" title={en.education.title} description={en.education.description}>
+      <Timeline items={en.education.items} />
+    </Section>
+
+    <Section data-section="projects" title={en.projects.title} description={en.projects.description}>
+      <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+        {en.projects.items.map(project => (
+          <ProjectCard
+            title={project.title}
+            description={project.description}
+            tags={project.tags}
+            href={project.href}
+          />
+        ))}
+      </div>
+    </Section>
+
+    <Section data-section="skills" title={en.skills.title} description={en.skills.description}>
+      <SkillList categories={en.skills.categories} />
+    </Section>
+
+    <Section data-section="languages" title={en.languages.title} description={en.languages.description}>
+      <div class="flex flex-wrap gap-6">
+        {en.languages.items.map(item => (
+          <div class="flex flex-col items-start">
+            <span class="text-lg font-semibold text-white">{item.name}</span>
+            <span class="text-sm text-neutral-400">{item.level}</span>
+          </div>
+        ))}
+      </div>
+    </Section>
+
+    <Section data-section="contact" title={en.contact.title} description={en.contact.description}>
+      <a
+        href={en.contact.email}
+        class="inline-flex items-center gap-2 bg-emerald-500 text-neutral-950 font-semibold text-sm px-6 py-3 rounded-lg hover:bg-emerald-400 transition-colors"
+      >
+        {en.contact.ctaText}
+        <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+          <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 8l7.89 5.26a2 2 0 002.22 0L21 8M5 19h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v10a2 2 0 002 2z" />
+        </svg>
+      </a>
+    </Section>
+
+    <Footer name={myName} socials={en.socials} copyright={en.footer.copyright} />
+  </div>
 
 </Layout>
+
+<style>
+  /* Content visibility: Italian shown by default, JS toggles data-lang */
+  .lang-en {
+    display: none;
+  }
+
+  html[data-lang="en"] .lang-it {
+    display: none;
+  }
+
+  html[data-lang="en"] .lang-en {
+    display: block;
+  }
+
+  /* Navbar: default lang="it" shown, lang="en" hidden */
+  nav[data-lang="en"] {
+    display: none;
+  }
+
+  html[data-lang="en"] nav[data-lang="it"] {
+    display: none;
+  }
+
+  html[data-lang="en"] nav[data-lang="en"] {
+    display: block;
+  }
+</style>
+
+<script is:inline>
+  (function () {
+    // Sync a toggle's flag classes to its data-active value
+     function syncFlags(toggle) {
+       const lang = toggle.dataset.active || 'it';
+       toggle.querySelectorAll('.lang-flag').forEach(flag => {
+         flag.classList.toggle('active', flag.classList.contains(`flag-${lang}`));
+       });
+     }
+
+     // Apply initial language to html element
+     function applyLang() {
+       const lang = localStorage.getItem('lang') || 'it';
+       document.documentElement.setAttribute('data-lang', lang);
+       document.querySelectorAll('.lang-toggle').forEach(toggle => {
+         toggle.dataset.active = lang;
+         syncFlags(toggle);
+       });
+     }
+     applyLang();
+
+     // Handle language toggle
+     document.addEventListener('click', (e) => {
+       const toggle = e.target.closest('.lang-toggle');
+       if (!toggle) return;
+
+       e.preventDefault();
+       e.stopPropagation();
+
+       const current = toggle.dataset.active || 'it';
+       const next = current === 'it' ? 'en' : 'it';
+
+       toggle.dataset.active = next;
+       localStorage.setItem('lang', next);
+       syncFlags(toggle);
+
+       // Sync the other toggle too
+       document.querySelectorAll('.lang-toggle').forEach(other => {
+         if (other !== toggle) {
+           other.dataset.active = next;
+           syncFlags(other);
+         }
+       });
+       document.documentElement.setAttribute('data-lang', next);
+     });
+
+    // Handle navigation scroll
+    document.addEventListener('click', (e) => {
+      const target = e.target.closest('a[href^="#"]');
+      if (!target) return;
+
+      const hash = target.getAttribute('href');
+      if (!hash || hash.length < 2) return;
+
+      const lang = localStorage.getItem('lang') || 'it';
+      const sectionId = hash.slice(1);
+
+      // Query both languages and use the first visible one
+      const elements = document.querySelectorAll(`[data-section="${sectionId}"]`);
+      const element = Array.from(elements).find(el =>
+        (lang === 'it' && el.closest('.lang-it')) ||
+        (lang === 'en' && el.closest('.lang-en'))
+      );
+
+      if (element) {
+        e.preventDefault();
+        element.scrollIntoView({ behavior: 'smooth' });
+        history.pushState(null, '', hash);
+      }
+    });
+  })();
+</script>

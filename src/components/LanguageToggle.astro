@@ -1,0 +1,41 @@
+<button
+  class="lang-toggle relative flex items-center gap-0 rounded-full border border-neutral-700 bg-neutral-900 p-0.5 cursor-pointer overflow-hidden"
+  data-active="it"
+>
+  <span class="toggle-highlight absolute left-0.5 top-0.5 w-[30px] h-[24px] rounded-full bg-neutral-700/80 transition-transform duration-300 ease-out" />
+  <span class="flag-it lang-flag relative z-10 flex items-center justify-center w-[30px] h-[24px] rounded-full overflow-hidden">
+    <img
+      src={`${import.meta.env.BASE_URL}/flags/ita-flag.webp`}
+      alt="Italian"
+      class="w-[20px] h-[14px] object-cover rounded-sm"
+    />
+  </span>
+  <span class="flag-en lang-flag relative z-10 flex items-center justify-center w-[30px] h-[24px] rounded-full overflow-hidden">
+    <img
+      src={`${import.meta.env.BASE_URL}/flags/eng-flag.png`}
+      alt="English"
+      class="w-[20px] h-[14px] object-cover rounded-sm"
+    />
+  </span>
+</button>
+
+<style>
+  .lang-flag {
+    opacity: 0.5;
+    transition: opacity 0.2s ease;
+  }
+</style>
+
+<style is:global>
+  .lang-flag.active {
+    opacity: 1;
+  }
+
+  .lang-toggle[data-active="it"] .toggle-highlight {
+    transform: translateX(0);
+  }
+
+  .lang-toggle[data-active="en"] .toggle-highlight {
+    transform: translateX(29px);
+  }
+</style>
