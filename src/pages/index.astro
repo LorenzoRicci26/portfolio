@@ -1,6 +1,7 @@
 ---
 import Layout from '../layouts/Layout.astro';
-import Navbar from '../components/Navbar.astro';
+import NavbarIt from '../components/NavbarIt.astro';
+import NavbarEn from '../components/NavbarEn.astro';
 import Hero from '../components/Hero.astro';
 import Section from '../components/Section.astro';
 import ProjectCard from '../components/ProjectCard.astro';
@@ -22,13 +23,9 @@ const sectionIds = ['home', 'about', 'experience', 'education', 'projects', 'ski
 <Layout title={it.seo.title} description={it.seo.description}>
 
   <!-- Italian Navbar -->
-  <div class="lang-it">
-    <Navbar name={myName} links={it.nav.links} />
-  </div>
-  <div class="lang-en">
-    <Navbar name={myName} links={en.nav.links} />
-  </div>
-
+  <NavbarIt name={myName} links={it.nav.links} />
+  <!-- English Navbar -->
+  <NavbarEn name={myName} links={en.nav.links} />
   <!-- Italian Content -->
   <div class="lang-it">
     <Hero
@@ -164,7 +161,7 @@ const sectionIds = ['home', 'about', 'experience', 'education', 'projects', 'ski
 </Layout>
 
 <style>
-  /* Language visibility: Italian shown by default, JS toggles data-lang */
+  /* Content visibility: Italian shown by default, JS toggles data-lang */
   .lang-en {
     display: none;
   }
@@ -177,15 +174,67 @@ const sectionIds = ['home', 'about', 'experience', 'education', 'projects', 'ski
     display: block;
   }
 
-  /* Navbar is inside lang wrappers, force block so it's visible when parent is visible */
-  .lang-it > nav,
-  .lang-en > nav {
+  /* Navbar: default lang="it" shown, lang="en" hidden */
+  nav[data-lang="en"] {
+    display: none;
+  }
+
+  html[data-lang="en"] nav[data-lang="it"] {
+    display: none;
+  }
+
+  html[data-lang="en"] nav[data-lang="en"] {
     display: block;
   }
 </style>
 
 <script is:inline>
   (function () {
+    // Sync a toggle's flag classes to its data-active value
+     function syncFlags(toggle) {
+       const lang = toggle.dataset.active || 'it';
+       toggle.querySelectorAll('.lang-flag').forEach(flag => {
+         flag.classList.toggle('active', flag.classList.contains(`flag-${lang}`));
+       });
+     }
+
+     // Apply initial language to html element
+     function applyLang() {
+       const lang = localStorage.getItem('lang') || 'it';
+       document.documentElement.setAttribute('data-lang', lang);
+       document.querySelectorAll('.lang-toggle').forEach(toggle => {
+         toggle.dataset.active = lang;
+         syncFlags(toggle);
+       });
+     }
+     applyLang();
+
+     // Handle language toggle
+     document.addEventListener('click', (e) => {
+       const toggle = e.target.closest('.lang-toggle');
+       if (!toggle) return;
+
+       e.preventDefault();
+       e.stopPropagation();
+
+       const current = toggle.dataset.active || 'it';
+       const next = current === 'it' ? 'en' : 'it';
+
+       toggle.dataset.active = next;
+       localStorage.setItem('lang', next);
+       syncFlags(toggle);
+
+       // Sync the other toggle too
+       document.querySelectorAll('.lang-toggle').forEach(other => {
+         if (other !== toggle) {
+           other.dataset.active = next;
+           syncFlags(other);
+         }
+       });
+       document.documentElement.setAttribute('data-lang', next);
+     });
+
+    // Handle navigation scroll
     document.addEventListener('click', (e) => {
       const target = e.target.closest('a[href^="#"]');
       if (!target) return;
@@ -194,11 +243,13 @@ const sectionIds = ['home', 'about', 'experience', 'education', 'projects', 'ski
       if (!hash || hash.length < 2) return;
 
       const lang = localStorage.getItem('lang') || 'it';
-      const langClass = lang === 'en' ? '.lang-en' : '.lang-it';
       const sectionId = hash.slice(1);
 
-      const element = document.querySelector(
-        `${langClass} [data-section="${sectionId}"]`
+      // Query both languages and use the first visible one
+      const elements = document.querySelectorAll(`[data-section="${sectionId}"]`);
+      const element = Array.from(elements).find(el =>
+        (lang === 'it' && el.closest('.lang-it')) ||
+        (lang === 'en' && el.closest('.lang-en'))
       );
 
       if (element) {
