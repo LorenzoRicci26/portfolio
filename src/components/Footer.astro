@@ -1,11 +1,11 @@
 ---
-const { name, socials } = Astro.props;
+const { name, socials, copyright = 'Tutti i diritti riservati.' } = Astro.props;
 ---
 
 <footer class="border-t border-neutral-800 py-16">
   <div class="max-w-6xl mx-auto px-6 flex flex-col md:flex-row items-center justify-between gap-6">
     <p class="text-neutral-500 text-sm">
-      © {new Date().getFullYear()} {name}. Tutti i diritti riservati.
+      © {new Date().getFullYear()} {name}. {copyright}
     </p>
     <div class="flex items-center gap-6">
       {socials.map(social => (

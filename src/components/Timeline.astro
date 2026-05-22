@@ -63,22 +63,31 @@ const { items } = Astro.props;
 </div>
 
 <script is:inline>
-  const observer = new IntersectionObserver(
-    (entries) => {
-      entries.forEach((entry) => {
-        if (entry.isIntersecting) {
-          entry.target.classList.add('timeline-visible');
-          const card = entry.target.querySelector('.timeline-card');
-          if (card) {
-            card.classList.add('timeline-card-visible');
-          }
-        }
-      });
-    },
-    { threshold: 0.2, rootMargin: '0px 0px -50px 0px' }
-  );
+  (function () {
+    const items = Array.from(document.querySelectorAll('.timeline-item'));
+    // Only observe items that haven't been observed yet (first visible instance)
+    const observed = items.filter(item => !item.dataset.observed);
+    if (!observed.length) return;
 
-  document.querySelectorAll('.timeline-item').forEach((el) => observer.observe(el));
+    observed.forEach(item => item.dataset.observed = 'true');
+
+    const observer = new IntersectionObserver(
+      (entries) => {
+        entries.forEach((entry) => {
+          if (entry.isIntersecting) {
+            entry.target.classList.add('timeline-visible');
+            const card = entry.target.querySelector('.timeline-card');
+            if (card) {
+              card.classList.add('timeline-card-visible');
+            }
+          }
+        });
+      },
+      { threshold: 0.2, rootMargin: '0px 0px -50px 0px' }
+    );
+
+    observed.forEach((el) => observer.observe(el));
+  })();
 </script>
 
 <style is:global>
@@ -98,37 +107,47 @@ const { items } = Astro.props;
 </style>
 
 <script is:inline>
-  const updateLine = () => {
-    const items = document.querySelectorAll('.timeline-item');
-    if (!items.length) return;
+  (function () {
+    const timelineContainer = document.currentScript?.closest('div.relative');
+    if (!timelineContainer) return;
 
-    const container = items[0].closest('div[class^="relative"]');
-    const lineFill = container?.querySelector('.timeline-line-fill');
-    if (!lineFill) return;
+    const updateLine = () => {
+      const items = timelineContainer.querySelectorAll('.timeline-item');
+      if (!items.length) return;
 
-    let visibleCount = 0;
-    items.forEach((item) => {
-      if (item.classList.contains('timeline-visible')) visibleCount++;
+      const lineFill = timelineContainer.querySelector('.timeline-line-fill');
+      if (!lineFill) return;
+
+      let visibleCount = 0;
+      items.forEach((item) => {
+        if (item.classList.contains('timeline-visible')) visibleCount++;
+      });
+
+      const percentage = (visibleCount / items.length) * 100;
+      lineFill.style.height = `${percentage}%`;
+    };
+
+    const items = timelineContainer.querySelectorAll('.timeline-item');
+    const resizeObserver = new ResizeObserver(updateLine);
+    items.forEach((el) => {
+      el.addEventListener('classlistchange', updateLine);
+      resizeObserver.observe(el);
     });
 
-    const percentage = (visibleCount / items.length) * 100;
-    lineFill.style.height = `${percentage}%`;
-  };
+    let ticking = false;
+    const scrollHandler = () => {
+      if (!ticking) {
+        requestAnimationFrame(() => {
+          updateLine();
+          ticking = false;
+        });
+        ticking = true;
+      }
+    };
+    // Use a named handler so we can track it per container
+    window.addEventListener('scroll', scrollHandler);
 
-  const resizeObserver = new ResizeObserver(updateLine);
-  document.querySelectorAll('.timeline-item').forEach((el) => {
-    el.addEventListener('classlistchange', updateLine);
-    resizeObserver.observe(el);
-  });
-
-  let ticking = false;
-  window.addEventListener('scroll', () => {
-    if (!ticking) {
-      requestAnimationFrame(() => {
-        updateLine();
-        ticking = false;
-      });
-      ticking = true;
-    }
-  });
+    // Initial line position
+    updateLine();
+  })();
 </script>
