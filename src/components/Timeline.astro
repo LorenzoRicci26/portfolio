@@ -8,7 +8,13 @@ interface Experience {
   logo?: string;
 }
 
-const { items } = Astro.props;
+interface Props {
+  items: Experience[];
+  badgeWork: string;
+  badgeEducation: string;
+}
+
+const { items, badgeWork, badgeEducation } = Astro.props;
 ---
 
 <div class="relative">
@@ -37,7 +43,7 @@ const { items } = Astro.props;
                 ? 'bg-violet-500/10 text-violet-400 border border-violet-500/20'
                 : 'bg-sky-500/10 text-sky-400 border border-sky-500/20'
             }`}>
-              {item.type === 'education' ? 'Formazione' : 'Lavoro'}
+              {item.type === 'education' ? badgeEducation : badgeWork}
             </span>
             <div class="flex items-center gap-3 mb-1">
               {item.logo && (

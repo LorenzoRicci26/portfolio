@@ -10,8 +10,7 @@ export const i18n = {
     links: [
       { label: 'Home', href: '#home' },
       { label: 'About', href: '#about' },
-      { label: 'Experience', href: '#experience' },
-      { label: 'Education', href: '#education' },
+      { label: 'My Journey', href: '#timeline' },
       { label: 'Projects', href: '#projects' },
       { label: 'Skills', href: '#skills' },
       { label: 'Contact', href: '#contact' },
@@ -31,37 +30,19 @@ export const i18n = {
     description: 'Computer Engineer at Politecnico di Torino with experience at Accenture as an Enterprise Architect. Specialized in backend development with Java and Spring Boot, event-driven architectures with Apache Kafka, and container orchestration with Kubernetes and Docker. I collaborate in Agile Scrum teams and work on solutioning to translate business requirements into scalable solutions.',
   },
 
-  experience: {
-    title: 'Professional Experience',
-    description: 'My professional journey — from internship to enterprise architecture.',
+  timeline: {
+    title: 'My Journey',
+    description: 'From high school to enterprise architecture — my academic and professional path.',
+    badgeWork: 'Work',
+    badgeEducation: 'Education',
     items: [
       {
-        title: 'Enterprise Architect Analyst',
-        organization: 'Accenture',
-        period: 'Mar 2026 — Present',
-        description: 'Backend development with Java and Spring Boot. Scalable and event-driven architectures with MongoDB and Apache Kafka. Multi-agent architecture design using the MCP protocol. Collaboration with Product Owners for solutioning activities. Working in Agile Scrum teams.',
-        type: 'work' as const,
-      },
-      {
-        title: 'Enterprise Architect Intern',
-        organization: 'Accenture',
-        period: 'Apr 2025 — Feb 2026',
-        description: 'Backend development with Java and Spring Boot. Scalable and event-driven architectures with MongoDB and Apache Kafka. Multi-agent architecture design using the MCP protocol. Collaboration with Product Owners for solutioning activities. Working in Agile Scrum teams.',
-        type: 'work' as const,
-      },
-    ],
-  },
-
-  education: {
-    title: 'Education',
-    description: 'My academic journey — from fundamentals to advanced software engineering.',
-    items: [
-      {
-        title: "Master's Degree in Computer Engineering, Software track",
-        organization: 'Politecnico di Torino',
-        period: '2023 — Mar 2026',
-        description: 'Grade: 108/110. Courses: Computer Systems Architectures, Data Science and Database Technologies, Information Systems, Formal Languages and Compilers, Systems Programming, Software Engineering I & II.',
+        title: 'Scientific High School Diploma',
+        organization: 'Antonio Gramsci Scientific High School',
+        period: '2018',
+        description: 'Work-experience programs: tour guide at Opificio delle Pietre Dure, database reconstruction for San Salvi psychiatric hospital with Chille della Balanza.',
         type: 'education' as const,
+        logo: 'logos/liceo-gramsci.jpg',
       },
       {
         title: "Bachelor's Degree in Computer Engineering",
@@ -69,13 +50,31 @@ export const i18n = {
         period: '2018 — 2023',
         description: 'Thesis: "Sensing and distributed processing applications in drone networks through the Software Defined Networking principle".',
         type: 'education' as const,
+        logo: 'logos/unifi.png',
       },
       {
-        title: 'Scientific High School Diploma',
-        organization: 'Antonio Gramsci Scientific High School',
-        period: '2018',
-        description: 'Work-experience programs: tour guide at Opificio delle Pietre Dure, database reconstruction for San Salvi psychiatric hospital with Chille della Balanza.',
+        title: "Master's Degree in Computer Engineering, Software track",
+        organization: 'Politecnico di Torino',
+        period: '2023 — Mar 2026',
+        description: 'Grade: 108/110. Courses: Computer Systems Architectures, Data Science and Database Technologies, Information Systems, Formal Languages and Compilers, Systems Programming, Software Engineering I & II.',
         type: 'education' as const,
+        logo: 'logos/polito.png',
+      },
+      {
+        title: 'Enterprise Architect Intern',
+        organization: 'Accenture',
+        period: 'Apr 2025 — Feb 2026',
+        description: 'Backend development with Java and Spring Boot. Scalable and event-driven architectures with MongoDB and Apache Kafka. Multi-agent architecture design using the MCP protocol. Collaboration with Product Owners for solutioning activities. Working in Agile Scrum teams.',
+        type: 'work' as const,
+        logo: 'logos/Accenture.svg.png',
+      },
+      {
+        title: 'Enterprise Architect Analyst',
+        organization: 'Accenture',
+        period: 'Mar 2026 — Present',
+        description: 'Backend development with Java and Spring Boot. Scalable and event-driven architectures with MongoDB and Apache Kafka. Multi-agent architecture design using the MCP protocol. Collaboration with Product Owners for solutioning activities. Working in Agile Scrum teams.',
+        type: 'work' as const,
+        logo: 'logos/Accenture.svg.png',
       },
     ],
   },
