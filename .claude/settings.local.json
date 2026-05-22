@@ -1,0 +1,25 @@
+{
+  "permissions": {
+    "allow": [
+      "Skill(superpowers:brainstorming)",
+      "Skill(superpowers:writing-plans)",
+      "Skill(superpowers:executing-plans)",
+      "Bash(git checkout *)",
+      "Bash(npm run *)",
+      "Bash(curl -s http://localhost:4321)",
+      "Bash(curl -s http://localhost:4321/portfolio)",
+      "Bash(xargs kill)",
+      "Bash(taskkill /F /IM node.exe)",
+      "Bash(git add *)",
+      "Bash(git commit -m ' *)",
+      "Skill(superpowers:subagent-driven-development)",
+      "Bash(git commit *)",
+      "Bash(git *)",
+      "Bash(netstat -ano)",
+      "Bash(findstr \":4321\")",
+      "Bash(curl -s \"http://localhost:4321/portfolio\")",
+      "Read(//tmp/**)",
+      "Bash(findstr :4321)"
+    ]
+  }
+}

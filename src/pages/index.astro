@@ -16,7 +16,7 @@ import { i18n as en } from '../content/i18n/en';
 const myName = 'Lorenzo Ricci';
 
 // Shared section ID mapping so both languages use the same anchors
-const sectionIds = ['home', 'about', 'experience', 'education', 'projects', 'skills', 'languages', 'contact'];
+const sectionIds = ['home', 'about', 'timeline', 'projects', 'skills', 'languages', 'contact'];
 
 ---
 
@@ -41,12 +41,8 @@ const sectionIds = ['home', 'about', 'experience', 'education', 'projects', 'ski
       <AboutMe description={it.about.description} />
     </Section>
 
-    <Section data-section="experience" title={it.experience.title} description={it.experience.description}>
-      <Timeline items={it.experience.items} />
-    </Section>
-
-    <Section data-section="education" title={it.education.title} description={it.education.description}>
-      <Timeline items={it.education.items} />
+    <Section data-section="timeline" title={it.timeline.title} description={it.timeline.description}>
+      <Timeline items={it.timeline.items} badgeWork={it.timeline.badgeWork} badgeEducation={it.timeline.badgeEducation} />
     </Section>
 
     <Section data-section="projects" title={it.projects.title} description={it.projects.description}>
@@ -107,12 +103,8 @@ const sectionIds = ['home', 'about', 'experience', 'education', 'projects', 'ski
       <AboutMe description={en.about.description} />
     </Section>
 
-    <Section data-section="experience" title={en.experience.title} description={en.experience.description}>
-      <Timeline items={en.experience.items} />
-    </Section>
-
-    <Section data-section="education" title={en.education.title} description={en.education.description}>
-      <Timeline items={en.education.items} />
+    <Section data-section="timeline" title={en.timeline.title} description={en.timeline.description}>
+      <Timeline items={en.timeline.items} badgeWork={en.timeline.badgeWork} badgeEducation={en.timeline.badgeEducation} />
     </Section>
 
     <Section data-section="projects" title={en.projects.title} description={en.projects.description}>

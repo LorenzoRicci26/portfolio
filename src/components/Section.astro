@@ -1,8 +1,8 @@
 ---
-const { id, title, description } = Astro.props;
+const { id, title, description, 'data-section': dataSection } = Astro.props;
 ---
 
-<section id={id} class="py-24 md:py-32">
+<section id={id} data-section={dataSection} class="py-24 md:py-32">
   <div class="max-w-6xl mx-auto px-6">
     <div class="mb-16">
       <h2 class="text-3xl md:text-4xl font-bold tracking-tight mb-4">{title}</h2>
